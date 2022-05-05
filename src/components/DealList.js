@@ -1,17 +1,21 @@
 import React from 'react';
+import { FlatList, StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types'
 
-import { StyleSheet, Text, View } from 'react-native';
+import DealItem from './DealItem'
 
-export default function DealList({ deals }) {
+const DealList = ({ deals }) => {
   return (
     <View style={styles.list}>
-      {deals.map((deal) => {
-        return <Text key={deal.key}>{deal.title}</Text>
-      })}
+      <FlatList 
+        data={deals} 
+        renderItem={({item}) => <DealItem deal={item} />}
+      />
     </View>
   )
 }
+
+export default DealList;
 
 const styles = StyleSheet.create({
   list: {
