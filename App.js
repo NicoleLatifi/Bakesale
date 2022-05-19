@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import ajax from './src/ajax';
 import DealList from './src/components/DealList';
+import DealDetail from './src/components/DealDetail';
 
 export default function App() {
   const [deals, setDeals] = useState([]);
+  const [currentDealId, setCurrentDealId] = useState(null);
 
   useEffect(() => {
     const fetchDeals = async () => {
@@ -15,14 +16,20 @@ export default function App() {
     fetchDeals();
   }, [])
 
+  const currentDeal = () => {
+    return deals.find(deal => deal.key === currentDealId)
+  }
+
+  if (currentDealId) {
+    return <DealDetail deal={currentDeal()} />
+  }
+  if (deals.length > 0) {
+    return <DealList deals={deals} onItemPress={setCurrentDealId} />;
+  }
+
   return (
     <View style={styles.container}>
-      {deals.length > 0 ? (
-        <DealList deals={deals} />
-      ) : (
         <Text style={styles.header}>Bakesale</Text>
-      )}
-      <StatusBar style="auto" />
     </View>
   );
 }

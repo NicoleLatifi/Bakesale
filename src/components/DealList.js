@@ -4,12 +4,12 @@ import PropTypes from 'prop-types'
 
 import DealItem from './DealItem'
 
-const DealList = ({ deals }) => {
+const DealList = ({ deals, onItemPress }) => {
   return (
     <View style={styles.list}>
       <FlatList 
         data={deals} 
-        renderItem={({item}) => <DealItem deal={item} />}
+        renderItem={({item}) => <DealItem deal={item} onPress={onItemPress} />}
       />
     </View>
   )
@@ -27,5 +27,6 @@ const styles = StyleSheet.create({
 })
 
 DealList.propTypes = {
-  deals: PropTypes.array.isRequired
+  deals: PropTypes.array.isRequired,
+  onItemPress: PropTypes.func.isRequired,
 }

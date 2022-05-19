@@ -1,13 +1,19 @@
 import React from 'react';
-import {Image, Text, StyleSheet, View } from 'react-native';
+import {Image, Text, TouchableOpacity, StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
 
 import { displayPrice } from '../utils';
-import { borderLeftColor } from 'react-native/Libraries/Components/View/ReactNativeStyleAttributes';
 
-const DealItem = ({ deal }) => {
+const DealItem = ({ deal, onPress }) => {
+  const handlePress = () => {
+    onPress(deal.key)
+  }
+
   return (
-    <View style={styles.deal}>
+    <TouchableOpacity 
+      onPress={handlePress} 
+      style={styles.deal}
+    >
       <Image source={{ uri: deal.media[0] }} style={styles.image} />
       <View style={styles.info}>
         <Text style={styles.title}>{deal.title}</Text>
@@ -16,7 +22,7 @@ const DealItem = ({ deal }) => {
           <Text style={styles.price}>{displayPrice(deal.price)}</Text>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 
@@ -58,4 +64,5 @@ const styles = StyleSheet.create({
 
 DealItem.propTypes = {
   deal: PropTypes.object.isRequired,
+  onPress: PropTypes.func.isRequired,
 }
