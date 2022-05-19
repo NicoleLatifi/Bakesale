@@ -21,7 +21,7 @@ export default function App() {
   }
 
   if (currentDealId) {
-    return <DealDetail deal={currentDeal()} />
+    return <DealDetail initialDealData={currentDeal()} />
   }
   if (deals.length > 0) {
     return <DealList deals={deals} onItemPress={setCurrentDealId} />;
