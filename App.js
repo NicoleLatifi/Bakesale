@@ -8,6 +8,8 @@ export default function App() {
   const [deals, setDeals] = useState([]);
   const [currentDealId, setCurrentDealId] = useState(null);
 
+  const unsetCurrentDeal = () => setCurrentDealId(null)
+
   useEffect(() => {
     const fetchDeals = async () => {
       const data = await ajax.fetchInitialDeals();
@@ -21,7 +23,12 @@ export default function App() {
   }
 
   if (currentDealId) {
-    return <DealDetail initialDealData={currentDeal()} />
+    return (
+      <DealDetail 
+        initialDealData={currentDeal()} 
+        onBack={unsetCurrentDeal} 
+      />
+    );
   }
   if (deals.length > 0) {
     return <DealList deals={deals} onItemPress={setCurrentDealId} />;
