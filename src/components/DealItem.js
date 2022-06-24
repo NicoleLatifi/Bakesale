@@ -1,19 +1,16 @@
-import React from 'react';
-import {Image, Text, TouchableOpacity, StyleSheet, View } from 'react-native';
-import PropTypes from 'prop-types';
+import React from "react";
+import { Image, Text, TouchableOpacity, StyleSheet, View } from "react-native";
+import PropTypes from "prop-types";
 
-import { displayPrice } from '../utils';
+import { displayPrice } from "../utils";
 
 const DealItem = ({ deal, onPress }) => {
   const handlePress = () => {
-    onPress(deal.key)
-  }
+    onPress(deal.key);
+  };
 
   return (
-    <TouchableOpacity 
-      onPress={handlePress} 
-      style={styles.deal}
-    >
+    <TouchableOpacity onPress={handlePress} style={styles.deal}>
       <Image source={{ uri: deal.media[0] }} style={styles.image} />
       <View style={styles.info}>
         <Text style={styles.title}>{deal.title}</Text>
@@ -24,7 +21,7 @@ const DealItem = ({ deal, onPress }) => {
       </View>
     </TouchableOpacity>
   );
-}
+};
 
 export default DealItem;
 
@@ -37,32 +34,32 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
   footer: {
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   image: {
     backgroundColor: "#ccc",
     height: 150,
-    width: '100%',
+    width: "100%",
   },
   info: {
     backgroundColor: "#fff",
-    borderColor: '#bbb',
+    borderColor: "#bbb",
     borderTopWidth: 0,
     borderWidth: 1,
     padding: 10,
   },
   title: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 5,
   },
   price: {
     flex: 1,
-    textAlign: 'right',
-  }
-})
+    textAlign: "right",
+  },
+});
 
 DealItem.propTypes = {
   deal: PropTypes.object.isRequired,
   onPress: PropTypes.func.isRequired,
-}
+};
