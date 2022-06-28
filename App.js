@@ -1,5 +1,12 @@
-import { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { useEffect, useRef, useState } from "react";
+import {
+  Animated,
+  Dimensions,
+  Easing,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import ajax from "./src/ajax";
 import DealList from "./src/components/DealList";
 import DealDetail from "./src/components/DealDetail";
@@ -9,6 +16,8 @@ export default function App() {
   const [currentDealId, setCurrentDealId] = useState(null);
   const [deals, setDeals] = useState([]);
   const [dealsFromSearch, setDealsFromSearch] = useState([]);
+
+  const titleXPos = useRef(new Animated.Value(0)).current;
 
   const dealsToDisplay = dealsFromSearch.length > 0 ? dealsFromSearch : deals;
 
@@ -22,7 +31,22 @@ export default function App() {
     setDealsFromSearch(dealsFromSearch);
   };
 
+  const animatedTitle = (direction = 1) => {
+    const width = Dimensions.get("window").width;
+    Animated.timing(titleXPos, {
+      toValue: (direction * (width - 150)) / 2,
+      duration: 2000,
+      easing: Easing.ease,
+      useNativeDriver: false,
+    }).start(({ finished }) => {
+      if (finished) {
+        animatedTitle(-1 * direction);
+      }
+    });
+  };
+
   useEffect(() => {
+    animatedTitle();
     const fetchDeals = async () => {
       const data = await ajax.fetchInitialDeals();
       setDeals(data);
@@ -51,9 +75,9 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
+    <Animated.View style={[{ left: titleXPos }, styles.container]}>
       <Text style={styles.header}>Bakesale</Text>
-    </View>
+    </Animated.View>
   );
 }
 

@@ -1,18 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { TextInput, StyleSheet } from "react-native";
 import debounce from "lodash.debounce";
 
 const SearchBar = ({ searchDeals }) => {
-  const [searchTerm, setSearchTerm] = useState("");
-
   const debouncedSearchDeals = debounce(
     (searchTerm) => searchDeals(searchTerm),
     300
   );
 
   const handleOnChangeText = (searchTerm) => {
-    setSearchTerm(searchTerm);
     debouncedSearchDeals(searchTerm);
   };
 

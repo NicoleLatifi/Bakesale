@@ -22,18 +22,20 @@ const DealDetail = ({ initialDealData, onBack }) => {
         <Text style={styles.backLink}>Back</Text>
       </TouchableOpacity>
       <Image source={{ uri: deal.media[0] }} style={styles.image} />
+      <Text style={styles.title}>{deal.title}</Text>
       <View style={styles.detail}>
-        <Text style={styles.title}>{deal.title}</Text>
         <View style={styles.footer}>
-          <Text style={styles.cause}>{deal.cause.name}</Text>
-          <Text style={styles.price}>{displayPrice(deal.price)}</Text>
-        </View>
-        {deal.user && (
           <View>
-            <Image source={{ uri: deal.user.avatar }} style={styles.avatar} />
-            <Text>{deal.user.name}</Text>
+            <Text style={styles.price}>{displayPrice(deal.price)}</Text>
+            <Text>{deal.cause.name}</Text>
           </View>
-        )}
+          {deal.user && (
+            <View>
+              <Image source={{ uri: deal.user.avatar }} style={styles.avatar} />
+              <Text>{deal.user.name}</Text>
+            </View>
+          )}
+        </View>
         <View>
           <Text>{deal.description}</Text>
         </View>
@@ -46,42 +48,48 @@ export default DealDetail;
 
 const styles = StyleSheet.create({
   avatar: {
+    alignSelf: "center",
     borderRadius: 30,
-    height: 60,
-    width: 60,
+    height: 40,
+    margin: 8,
+    width: 40,
   },
   backLink: {
     color: "#22f",
-    marginBottom: 5,
-  },
-  cause: {
-    flex: 2,
+    marginBottom: 8,
+    marginLeft: 8,
   },
   deal: {
-    marginHorizontal: 12,
+    // borderColor: "#dad7cd",
+    // borderWidth: 1,
+    // marginHorizontal: 12,
+  },
+  detail: {
+    backgroundColor: "#fff",
+    padding: 8,
   },
   footer: {
+    alignItems: "flex-end",
     flexDirection: "row",
+    justifyContent: "space-around",
+    marginBottom: 16,
   },
   image: {
     backgroundColor: "#ccc",
     height: 150,
     width: "100%",
   },
-  detail: {
-    backgroundColor: "#fff",
-    borderColor: "#bbb",
-    borderWidth: 1,
-    padding: 10,
-  },
   title: {
+    backgroundColor: "#fbc4ab",
     fontSize: 16,
     fontWeight: "bold",
-    marginBottom: 5,
+    padding: 8,
   },
   price: {
-    flex: 1,
-    textAlign: "right",
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 16,
+    textAlign: "center",
   },
 });
 
